@@ -1,0 +1,1 @@
+mediciones=xlsread('Curvas_Medidas_Motor.xls');

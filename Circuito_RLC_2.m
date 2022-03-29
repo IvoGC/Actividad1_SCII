@@ -1,3 +1,4 @@
+close all; clear all; clc;
 % Caso 1. Sistema de dos variables de Estado
 
 A_u= 12;
@@ -9,7 +10,7 @@ c = 50;
 u = A_u*square(2*pi*f*t,c);
 %con esto ya queda definida la entrada
 %Caso 1.2
-R = 4.7*10^3;%[ohms]
+R = 5.6*10^3;%[ohms]
 L = 10*10^-6;%[H]
 C = 100*10^-9;%[F]
 

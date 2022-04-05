@@ -28,7 +28,7 @@ b=5;
 c=50;
 
 t_0=0;
-t_f=5; %tiempo total de simulacion
+t_f=1; %tiempo total de simulacion
 
 t = t_0:dt:(t_f-dt);
 

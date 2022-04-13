@@ -138,7 +138,7 @@ end
 figure
 plot (t , y(1,:)) ; title('distancia delta con phi_in=3.01 y m=0.2 sistema_NL'); xlabel('tiempo[s]'); ylabel('delta[m]');
 figure
-plot (t, y(3,:)); title('angulo phi_in=3.01 y m=0.1 sistema_NL'); xlabel('tiempo[s]'); ylabel('phi[rad]');
+plot (t, y(3,:)); title('angulo phi_in=3.01 y m=0.2 sistema_NL'); xlabel('tiempo[s]'); ylabel('phi[rad]');
 
 
 %%
@@ -154,7 +154,7 @@ u=0; tf=5; dt=0.1e-3;
 t= 0:dt:tf;
 
 A = [0,1,0,0 ; 0,(-F/M),(-m/M),0 ; 0,0,0,1 ; 0,(F/(l*M)),(((M+m)*g)/(l*M)),0 ];
-B = [0 ; (1/M) ; (-1/(l*M)) ; 0];
+B = [0 ; (1/M) ; 0 ; (-1/(l*M))];
 C = [1,0,0,0 ; 0,0,1,0];
 D = 0;
 
@@ -244,12 +244,12 @@ plot (t, y(3,:),'R'); title('angulo phi=-0.01, l=1.2 y m=0.01 sistemaL VS sistem
 5- Obtener el sistema lineal para el equilibrio estable X=[0,0,pi,0]
 --------------------------------------------------------------------------    
 %}
-m = 0.1; F = 0.1; l = 0.6; g = 9.8; M = 0.5; 
+m = 0.01; F = 0.1; l = 12; g = 9.8; M = 0.5; 
 u=0; tf=5; dt=0.1e-3;
 t= 0:dt:tf;
 
 A = [0,1,0,0 ; 0,(-F/M),(-m*g/M),0 ; 0,0,0,1 ; 0,(-F/(l*M)),(-((M+m)*g)/(l*M)),0 ];
-B = [0 ; (1/M) ; (-1/(l*M)) ; 0];
+B = [0 ; (1/M) ; 0 ; (-1/(l*M))];
 C = [1,0,0,0 ; 0,0,1,0];
 D = 0;
 
@@ -259,18 +259,18 @@ sys=ss(A,B,C,D);
 
 
 %%
-close all; clear  ; clc;
+
 %{
 --------------------------------------------------------------------------
 6- Obtener la solución numérica de los dos sistemas, del lineal y del no lineal para evaluar 
-cuantitativamente la equivalencia, modificando m de 0,1 a 0,01 y la longitud l a 1,2m.
+cuantitativamente la equivalencia, modificando m de 0,1 a 0,5 y la longitud l a 12m.
 --------------------------------------------------------------------------
 %}
-m = 0.01; F = 0.1; l = 1.2; g = 9.8; M = 0.5; 
-u=0; tf=2; dt=0.1e-3;
+m = 0.5; F = 0.1; l = 12; g = 9.8; M = 0.5; 
+u=0; tf=1; dt=0.1e-3;
 
 %defino condifiones iniciales  a partir del punto de operacion
-delta = 0; delta_p = 0; phi = -3.01; phi_p = 0;
+delta = 0; delta_p = 0; phi = 0.01; phi_p = 0;
 
 t=0:dt:tf-dt;
 %Sistema NO Linealizado
@@ -303,8 +303,8 @@ y(4,1) = phi_p;   % = x4
 
 % % %Bucle para el sistema Linealizado en X=[0,0,pi,0]
 for i=1 :1:n-1 
-    delta_pp =  (u-F*y(2,i)+m*l*(y(4,i))^2*(-y(3,i)+pi)+m*g*(-y(3,i)+pi))/M;
-    phi_pp = (g*(-y(3,i)+pi)+delta_pp)/l ;
+    delta_pp =  (u-F*y(2,i)-m*g*y(3,i))/M;
+    phi_pp = (-F*y(2,i)-g*(M+m)*y(3,i)-u)/(l*M) ;
     
     y(1,i+1) = y(1,i) + dt* y(2,i);
     y(2,i+1) = y(2,i) + dt* delta_pp;
@@ -313,14 +313,14 @@ for i=1 :1:n-1
 end
 
 figure
-plot (t , yNL(1,:),'G') ; title('distancia delta con phi=3.01, l=1.2 y m=0.01 sistemaNL'); xlabel('tiempo[s]'); ylabel('delta[m]');
+plot (t , yNL(1,:),'G') ; title('distancia delta con phi=3.01, l=12 y m=0.5 sistemaNL'); xlabel('tiempo[s]'); ylabel('delta[m]');
 hold on
-plot (t , y(1,:),'R') ; title('distancia delta con phi=3.01, l=1.2 y m=0.01 sistemaL VS sistemaNL'); xlabel('tiempo[s]'); ylabel('delta[m]');
+plot (t , y(1,:),'R') ; title('distancia delta con phi=3.01, l=12 y m=0.5 sistemaL VS sistemaNL'); xlabel('tiempo[s]'); ylabel('delta[m]');
 
 figure
-plot (t, yNL(3,:),'G'); title('angulo phi=3.01, l=1.2 y m=0.01 sistemaNL'); xlabel('tiempo[s]'); ylabel('phi[rad]');
+plot (t, yNL(3,:),'G'); title('angulo phi=3.01, l=12 y m=0.5 sistemaNL'); xlabel('tiempo[s]'); ylabel('phi[rad]');
 hold on 
-plot (t, y(3,:),'R'); title('angulo phi=3.01, l=1.2 y m=0.01 sistemaL VS sistemaNL'); xlabel('tiempo[s]'); ylabel('phi[rad]');
+plot (t, y(3,:),'R'); title('angulo phi=3.01, l=12 y m=0.5 sistemaL VS sistemaNL'); xlabel('tiempo[s]'); ylabel('phi[rad]');
 
 
 

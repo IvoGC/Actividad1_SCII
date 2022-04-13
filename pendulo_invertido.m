@@ -342,25 +342,25 @@ plot (t, y(3,:),'R'); title('angulo phi=3.01, l=12 y m=0.5 sistemaL VS sistemaNL
 % %     
 % % end
 
-
-% % %Bucle para el sistema linealizado
-for i=1 :1:n-1 
-  y(1,i+1) = y(1,i) + dt* y(2,i);
-    
-  y(2,i+1) = y(2,i) + dt* (-((m*g*y(3,i))/M)+(((m*l*(y(4,i))^2*y(3,i))/M))-(((F*y(2,i))/M))+(u/M));
-    
-  y(3,i+1) = y(3,i) + dt* y(4,i);
-    
-  y(4,i+1) = y(4,i) + dt* ((y(3,i)*g*(m+M))/(M*l)-(((m*y(4,i))^2*y(3,i))/M)+((F*y(2,i))/(M*l))-(u/(M*l))) ;
-    
-end
-
-
-
-%A = [0,1,0,0 ; 0,(-F/M),(-m/M),0 ; 0,0,0,1 ; 0,(F/(l*M)),(((M+m)*g)/(l*M))]
-%B = [0 ; (1/M) ; (-1/(l*M)) ; 0]
-%C = [1,0,0,0 ; 0,0,1,0]
-%D = 0
-
+%ESTO NO ES PARTE DEL CODIGO
+% % % %Bucle para el sistema linealizado
+% for i=1 :1:n-1 
+%   y(1,i+1) = y(1,i) + dt* y(2,i);
+%     
+%   y(2,i+1) = y(2,i) + dt* (-((m*g*y(3,i))/M)+(((m*l*(y(4,i))^2*y(3,i))/M))-(((F*y(2,i))/M))+(u/M));
+%     
+%   y(3,i+1) = y(3,i) + dt* y(4,i);
+%     
+%   y(4,i+1) = y(4,i) + dt* ((y(3,i)*g*(m+M))/(M*l)-(((m*y(4,i))^2*y(3,i))/M)+((F*y(2,i))/(M*l))-(u/(M*l))) ;
+%     
+% end
+% 
+% 
+% 
+% %A = [0,1,0,0 ; 0,(-F/M),(-m/M),0 ; 0,0,0,1 ; 0,(F/(l*M)),(((M+m)*g)/(l*M))]
+% %B = [0 ; (1/M) ; (-1/(l*M)) ; 0]
+% %C = [1,0,0,0 ; 0,0,1,0]
+% %D = 0
+% 
 
 

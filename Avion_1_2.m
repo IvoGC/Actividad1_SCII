@@ -46,7 +46,7 @@ n = t_f/dt;
 u = ones(t_f/dt,1);
 u = u*0.01; 
 for j=(n/2) :1: n
-    u(j)=0;
+    u(j)=-0.01;
 end
 
 
@@ -66,7 +66,6 @@ end
 h_0=4000; 
 figure
 plot (t, y(:,4)+h_0); title('entrada u(t), ts=5 , h_0=4000[m] y c=100[m/s](360[Km/h])'); xlabel('tiempo[s]'); ylabel('altura h[m]')
-
 
 %%
 
@@ -96,8 +95,10 @@ n = t_f/dt;
 %simulacion y luego cambie su valor a -0.01
 u = ones(t_f/dt,1);
 u = u*0.01; 
-for j=(n/2) :1: n
-    u(j)=0;
+for j=1 :1: n
+    if (j>=5000)
+    u(j)=-0.02;
+    end
 end
 
 
@@ -113,8 +114,8 @@ for i=1 : 1 :(n-1)
     y(i+1 , 4) = y(i,4) + dt *c*h_p;
 end
 
-h_0=4000; 
+h_0=5400; 
 figure
-plot (t, y(:,4)+h_0); title('entrada u(t), ts=20 , h_0=4000[m] y c=50[m/s](180[Km/h])'); xlabel('tiempo[s]'); ylabel('altura h[m]')
+plot (t, y(:,4)+h_0); title('entrada u(t), ts=20 , h_0=5400[m] y c=50[m/s](180[Km/h])'); xlabel('tiempo[s]'); ylabel('altura h[m]')
 
 
